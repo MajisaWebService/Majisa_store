@@ -4,7 +4,11 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "incremental": true,
-    "types": []
+    "types": [],
+    "baseUrl": ".",
+    "paths": {
+      "@majistyle/types": ["../types/src"]
+    }
   },
   "include": ["src/**/*"]
 }
