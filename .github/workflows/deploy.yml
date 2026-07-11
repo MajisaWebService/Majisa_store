@@ -1,0 +1,62 @@
+name: Deploy to AWS EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Deploy to EC2 via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: 54.197.33.206
+          username: ubuntu
+          key: |
+            -----BEGIN RSA PRIVATE KEY-----
+            MIIEogIBAAKCAQEAsLSlAoqVgnWJ/KRca3Va+tmVGI0m4X+ceUuvTE+YK1XHTMbc
+            8reIQftfO7qQTAknJ62CGMuBn7kdnzvqRckyQiKaSMe1DigcR4hVbW+tTBRipF90
+            1F1rvzg2NZfuP9dP0cmLjcJYEroW0ft1gkLzoxZt9Tx3SxRwGIM5A+1itEzbhu3k
+            DxUUjuUQpYOTKYUwN/txn+fed9BkNKwh3pXM5F+yOWrzzixmX9cgGdpxge/dm5C5
+            4T3YsPyCXBZIudRODeWf3L/qxODclDxYGSUxYTOVDCXfITLFxkpqe8+GpZLOQN+L
+            LPdfFz5n0POaiC4KMjgCCRMLNAxi+ntcrd8J5wIDAQABAoIBADB+wzJ5WiLdoysE
+            6KBNKtThVfvQ8TS90vGvBcMJrRdniTTW9thd6jVBiZdY0jUr5eULx0KKx15QbYK/
+            7MGOQA7KdFE5DcV+2JQBJIDOP1870P6Pe/60TNfD04zNz4MR0kQe7f/PsGAjVhP2
+            0P8Y5MiDZVYCbDLcvw7bJJChW49je5NXB8qW70iemi66D3ncyIVrxuTZpC1ntDLc
+            pVL1efA4PPcmHoZVEu1TTGeiz7hqTIeNXivU/b+L8n6czibMshPtIHAWabQnEBUJ
+            q6mJCNLEJKEKnYX3iyrQl8K0KjdATncrzU2F/xWiQUnQf4/SlvjJ79Jy2rVivx7N
+            mh9s/6ECgYEA3yltHtjq7+i+sZy8ycpzZdD1WKV38HSXQb9u2cq44nNzxaTL7ZRI
+            eUnL3tlPSYGVr7ZOEKPV8epKxeBHyr2Qkrb4B2lJiIEG6FY5tzWwYEUhdxGOwntE
+            F+lz5T1r+OGBp9+VGBFRAEtW7R2qpsL8Y0YlunfenS1e2e792IlbWRkCgYEAyrUz
+            LsyvgstbenxRpMr7jYJu0lf/0E6auUQQyR9LjXk7NxYZqbtVZ4suRcshTFXzdVlK
+            qgUVGSA53OYq8NNCuRT0Mc/LwhNVWnbcjwXVg0GiBjiLWOALwX/emMgjxolciJGY
+            RUIIZotv0jSj4iUYgTZ4Wh83CEEvOM3SRshS2v8CgYBk+OSDwZhDpuapjIarMywV
+            lH9+dZgYN1i9CfYJGz2eUKjAc7lFrQNBxc817NOAKd7lmzIlO0wxYlYkxD8Xj8Ab
+            cig1ikEYP3E1rNX+fI9qb70dl9clTgrYWuvyfGEfQkGdCH/4XNVusagKL5MoUy9J
+            Z9LoVRZnvcCeERHQaQ3o+QKBgCo+nQ4RxjoB22ypX/JyAv64whPAFyX4W7JkhwMD
+            LKGtNDQEvRBsZB4SGXCeJrBb8ULxeuf36y+zUZvBtA1AWdVskn+XCKXHlbAmuUxt
+            MNQL55JYUmIRPyHyXheFDj+f/NLRVOSKIGoOgR1TrxvAE11KVsahXryvqQGzkzEB
+            KpNNAoGAcrh4F+6MEzvFueEd4C8NDdH5EaeXQjykfh9mBakEMfhw4aXkDkcVmXjN
+            i179i/TVaEymd7O1OpP/ZeBO7e9XOGVRw/61+S1vpEG898uDR1W1wedss1k7sw8f
+            cYwnbZDNJFlJBkpV1ZFVDEFZzrC1vVjnv+0JxpYHAYyLJEHGbqw=
+            -----END RSA PRIVATE KEY-----
+          script: |
+            # Navigate to the project directory
+            cd ~/Majisa_store
+
+            # Fetch and pull latest changes
+            git checkout main
+            git pull origin main
+
+            # Rebuild and restart the Docker containers
+            docker compose down
+            docker compose up -d --build
+
+            # Prune old images to prevent EC2 storage fill-ups
+            docker image prune -f
