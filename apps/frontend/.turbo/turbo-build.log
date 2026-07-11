@@ -1,0 +1,33 @@
+
+> @majistyle/frontend@1.0.0 build
+> next build
+
+  ▲ Next.js 14.2.35
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/8) ...
+   Generating static pages (2/8) 
+   Generating static pages (4/8) 
+   Generating static pages (6/8) 
+ ✓ Generating static pages (8/8)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                              Size     First Load JS
+┌ ○ /                                    175 B          96.1 kB
+├ ○ /_not-found                          873 B          88.1 kB
+├ ○ /cart                                2.75 kB        98.7 kB
+├ ○ /checkout                            2.44 kB        89.7 kB
+├ ○ /customize                           3.82 kB        91.1 kB
+└ ○ /orders                              2.67 kB        89.9 kB
++ First Load JS shared by all            87.2 kB
+  ├ chunks/1dd3208c-4c0d22b6a46a8095.js  53.6 kB
+  ├ chunks/528-5d3fee8b4ab44c7e.js       31.7 kB
+  └ other shared chunks (total)          1.89 kB
+
+
+○  (Static)  prerendered as static content
+

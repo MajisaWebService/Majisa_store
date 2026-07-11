@@ -1,0 +1,15 @@
+{
+  "name": "majistyle-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "MajiStyle Customized T-Shirt E-Commerce Platform",
+  "scripts": {
+    "dev:backend": "npm run start:dev --prefix apps/backend",
+    "dev:frontend": "npm run dev --prefix apps/frontend",
+    "dev:admin": "npm run dev --prefix apps/admin",
+    "build:all": "npm run build --prefix packages/types && npm run build --prefix packages/utils && npm run build --prefix apps/backend && npm run build --prefix apps/frontend && npm run build --prefix apps/admin"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "majistyle-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "description": "MajiStyle Customized T-Shirt E-Commerce Platform",
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "build:all": "turbo run build"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.3",
+    "turbo": "^1.13.0",
+    "typescript": "^5.3.3"
+  }
+}
