@@ -14,9 +14,8 @@ FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-# Build shared packages in dependency order
-RUN npm run build --workspace=packages/types && \
-    npm run build --workspace=packages/utils
+RUN npm run build --workspace=packages/types
+RUN npm run build --workspace=packages/utils
 # Mount next.js build cache to speed up successive compilation steps
 RUN --mount=type=cache,target=/app/apps/admin/.next/cache npm run build --workspace=apps/admin
 

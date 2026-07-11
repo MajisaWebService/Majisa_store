@@ -15,9 +15,8 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN npx prisma generate --schema=apps/backend/prisma/schema.prisma
-# Build shared packages in dependency order
-RUN npm run build --workspace=packages/types && \
-    npm run build --workspace=packages/utils
+RUN npm run build --workspace=packages/types
+RUN npm run build --workspace=packages/utils
 RUN npm run build --workspace=apps/backend
 
 FROM base AS runner
